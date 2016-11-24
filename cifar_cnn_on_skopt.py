@@ -176,15 +176,15 @@ def optimize_3layer_cnn(params):
 
 init_scale = [0.1, 0.5]
 learning_rate = (1e-4, 1e-1, "log-uniform")
-batch_sizes = [6, 12, 24, 32, 64, 128]
+batch_sizes = [1, 128]
 n_epochs = np.arange(5, 20)
 filter1_width = [2, 3, 4, 5]
 filter2_width = [2, 3, 4, 5]
-filter1_channels = [12, 20, 32, 64]
-filter2_channels = [100, 128, 256, 512]
+filter1_channels = [12, 512]
+filter2_channels = [12, 512]
 filter1_pool_width = [2, 3, 4]
 filter2_pool_width = [2, 3, 4]
-dropout = [0.1, 0.6]
+dropout = [0.0, 1.0]
 
 bounds = (
     init_scale,

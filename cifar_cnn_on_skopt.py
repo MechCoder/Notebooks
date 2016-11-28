@@ -14,6 +14,8 @@ def reshape_batches(X):
     (batch_size X (n_channels * image height * image width))
     to (batch_size X image height X image width X n_channels)
     """
+    X /= 255.0
+
     # from batch_size X (n_channels * image height * image width)
     # to batch_size X n_channels X (image height * image width)
     X = np.reshape(X, (-1, 3, 1024))
@@ -174,29 +176,34 @@ def optimize_3layer_cnn(params):
         print(vals["accuracy"])
     return -vals['accuracy']
 
-init_scale = [0.1, 0.5]
-learning_rate = (1e-4, 1e-1, "log-uniform")
-batch_sizes = [1, 128]
-n_epochs = np.arange(5, 20)
-filter1_width = [2, 3, 4, 5]
-filter2_width = [2, 3, 4, 5]
-filter1_channels = [12, 512]
-filter2_channels = [12, 512]
-filter1_pool_width = [2, 3, 4]
-filter2_pool_width = [2, 3, 4]
-dropout = [0.0, 1.0]
+optimize_3layer_cnn([0.5, 1e-3, 32, 56, 3, 3, 12, 32, 2, 2, 0.3])
 
-bounds = (
-    init_scale,
-    learning_rate,
-    batch_sizes,
-    n_epochs,
-    filter1_width,
-    filter2_width,
-    filter1_channels,
-    filter2_channels,
-    filter2_pool_width,
-    filter2_pool_width,
-    dropout
-)
-res = gp_minimize(optimize_3layer_cnn, bounds, n_calls=20, verbose=True)
+
+
+
+# init_scale = [0.1, 0.5]
+# learning_rate = (1e-4, 1e-1, "log-uniform")
+# batch_sizes = [1, 128]
+# n_epochs = np.arange(5, 20)
+# filter1_width = [2, 3, 4, 5]
+# filter2_width = [2, 3, 4, 5]
+# filter1_channels = [12, 512]
+# filter2_channels = [12, 512]
+# filter1_pool_width = [2, 3, 4]
+# filter2_pool_width = [2, 3, 4]
+# dropout = [0.0, 1.0]
+#
+# bounds = (
+#     init_scale,
+#     learning_rate,
+#     batch_sizes,
+#     n_epochs,
+#     filter1_width,
+#     filter2_width,
+#     filter1_channels,
+#     filter2_channels,
+#     filter2_pool_width,
+#     filter2_pool_width,
+#     dropout
+# )
+# res = gp_minimize(optimize_3layer_cnn, bounds, n_calls=20, verbose=True)
